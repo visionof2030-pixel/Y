@@ -12,26 +12,24 @@ app.get("/stream", async (req, res) => {
       url: STREAM_URL,
       responseType: "stream",
       headers: {
-        "User-Agent": "Mozilla/5.0",
-        "Referer": "http://google.com"
+        "User-Agent": "Mozilla/5.0"
       }
     });
 
     res.setHeader("Content-Type", "video/mp2t");
-    res.setHeader("Access-Control-Allow-Origin", "*");
 
     response.data.pipe(res);
 
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Stream error");
+    res.status(500).send("stream error");
   }
 });
 
 app.get("/", (req, res) => {
-  res.send("IPTV Proxy Running 🚀");
+  res.send("IPTV running");
 });
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Server running");
+  console.log("Running");
 });
