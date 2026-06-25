@@ -1,33 +1,24 @@
 const express = require("express");
-const { spawn } = require("child_process");
-
 const app = express();
 
 const STREAM_URL = "http://gazalone.life:8080/live/omar777/01103978590/460864.ts";
 
-app.get("/stream.m3u8", (req, res) => {
-  const ffmpeg = spawn("ffmpeg", [
-    "-i", STREAM_URL,
-    "-c:v", "copy",
-    "-c:a", "copy",
-    "-f", "hls",
-    "-hls_time", "3",
-    "-hls_list_size", "3",
-    "-hls_flags", "delete_segments",
-    "pipe:1"
-  ]);
+app.get("/stream", (req, res) => {
+  res.setHeader("Content-Type", "video/mp2t");
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
-  res.setHeader("Content-Type", "application/vnd.apple.mpegurl");
-
-  ffmpeg.stdout.pipe(res);
-
-  ffmpeg.stderr.on("data", (data) => {
-    console.log("FFmpeg:", data.toString());
-  });
+  fetch(STREAM_URL)
+    .then(response => {
+      response.body.pipe(res);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send("Stream error");
+    });
 });
 
 app.get("/", (req, res) => {
-  res.send("IPTV FFmpeg Server Running 🚀");
+  res.send("IPTV Proxy Running");
 });
 
 app.listen(process.env.PORT || 3000, () => {
