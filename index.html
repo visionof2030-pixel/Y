@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+
+<title>IPTV Player</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+</style>
+</head>
+
+<body>
+
+<video
+  id="player"
+  class="video-js vjs-default-skin"
+  controls
+  autoplay
+  style="width:100%;max-width:900px;height:auto;"
+></video>
+
+<script>
+  var player = videojs('player');
+
+  player.src({
+    src: "http://amir11.bounceme.net:8080/YZjwcwnLjh/QlXrgJTnED/1127",
+    type: "application/x-mpegURL"
+  });
+
+  player.ready(function () {
+    player.play();
+  });
+</script>
+
+</body>
+</html>
