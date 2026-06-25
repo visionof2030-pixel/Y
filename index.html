@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TS Player</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+video {
+  width: 100%;
+  max-width: 900px;
+}
+</style>
+</head>
+<body>
+
+<video id="video" controls autoplay></video>
+
+<script>
+const video = document.getElementById('video');
+
+video.src = "http://gazalone.life:8080/live/omar777/01103978590/460864.ts";
+
+video.play().catch(err => {
+  console.log("AutoPlay blocked or stream issue:", err);
+});
+</script>
+
+</body>
+</html>
